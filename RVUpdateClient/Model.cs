@@ -19,33 +19,19 @@ namespace RVUpdateClient
 		public ArrayList MixFiles;
 		private Thread thread;
 
-		private bool ModDirectoryExists {
-			get
-			{
-				if (Directory.Exists(this.ModDirectory))
-					return true;
-				return false;
-			}
+		private bool ModDirectoryExists
+		{
+			get	{ return (Directory.Exists(this.ModDirectory));	}
 		}
 
 		public bool RepoValid
 		{
-			get
-			{
-				if (this.ModDirectoryExists && Repository.IsValid(this.ModDirectory))
-					return true;
-				return false;
-			}
+			get	{return (this.ModDirectoryExists && Repository.IsValid(this.ModDirectory));	}
 		}
 
 		public bool ContentValid
 		{
-			get
-			{
-				if (CheckModContent())
-					return true;
-				return false;
-			}
+			get { return CheckModContent(); }
 		}
 
 		public Model(Action<string> writeLine, Action<bool> progressToggle)
@@ -64,7 +50,9 @@ namespace RVUpdateClient
 			};
 
 			string documents = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			string appData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			//string documents = @"F:\Documents\";
+			//string appData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			string appData = @"F:\AppData\";
 			Upstream = @"https://github.com/mustaphatr/Romanovs-Vengeance";
 			ContentDirectory = Path.Combine(documents, @"OpenRA\Content\ra2");
 			ModDirectory = Path.Combine(appData, @"Romanovs-Vengeance");
@@ -73,9 +61,24 @@ namespace RVUpdateClient
 			WriteLine("RV Build Directory " + ModDirectory);
 		}
 
+		/// <summary>
+		///  This is needed to Delete Mod Directory. Directory.Delete will fail if there are any files marked as read only.
+		/// </summary>
+		void setAttributesNormal(DirectoryInfo dir)
+		{
+			foreach (var subDir in dir.GetDirectories())
+				setAttributesNormal(subDir);
+			foreach (var file in dir.GetFiles())
+			{
+				file.Attributes = FileAttributes.Normal;
+			}
+		}
+
 		public void DeleteModDirectory()
 		{
+			System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ModDirectory);
 			if (ModDirectoryExists)
+				setAttributesNormal(dir);
 				Directory.Delete(ModDirectory, true);
 		}
 
@@ -86,9 +89,12 @@ namespace RVUpdateClient
 				var fullPath = Path.Combine(ContentDirectory, file);
 				if (File.Exists(fullPath))
 					WriteLine(fullPath + " Exists");
+				else
+					return false;
 			}
 			return true;
 		}
+
 		private void CloneRepo()
 		{
 			WriteLine("Calling New Thread for Clone");
@@ -110,6 +116,8 @@ namespace RVUpdateClient
 
 		public bool IsPullNeeded()
 		{
+			// Todo: this currently isn't working. behind never populates with data. 
+			// Skipping this so we can get the other parts working
 			using (var repo = new Repository(ModDirectory))
 			{
 				string logMessage = "";
@@ -122,35 +130,30 @@ namespace RVUpdateClient
 			}
 			return false;
 		}
+
 		public void UpdateMod()
 		{
 			// Track the number of recursive calls and timeout. 
 			if (!RepoValid)
 			{
-				if(!thread.IsAlive){
-					DeleteModDirectory();
-					thread = new Thread(CloneRepo);
-					thread.Start();
-				}
-				else
-				{
-					WriteLine("Update is already running...");
-				}
+				DeleteModDirectory();
+				CloneRepo();
 			}
 			else
 			{
-				WriteLine("Mod Directory Valid. Checking for Updates");
-				IsPullNeeded();
+				//WriteLine("Mod Directory Valid. Checking for Updates");
+				/// I would like to be bandwidth sensitive here. IsPullNeeded should check to see if there is available data to pull.
+				/// Currently not working. 
+				/// What we do is Delete the repo directory, and start fresh each time. 
+				//IsPullNeeded();  
+				DeleteModDirectory();
+				CloneRepo();
 			}
-
-
 		}
+
 		public bool SanityCheck()
 		{
 			CheckModContent();
-
-
-
 			return true;
 		}
 

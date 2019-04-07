@@ -49,12 +49,21 @@ namespace RVUpdateClient
 
 		private void button2_Click(object sender, System.EventArgs e)
 		{
-			model.UpdateMod();
+			if (backgroundWorker1.IsBusy != true)
+			{
+				backgroundWorker1.RunWorkerAsync();
+				progressBar1.Visible = true;
+			}
 		}
 
 		private void button1_Click(object sender, System.EventArgs e)
 		{
 			model.SanityCheck();
+		}
+
+		private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+		{
+			model.UpdateMod();
 		}
 	}
 }

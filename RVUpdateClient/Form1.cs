@@ -10,7 +10,6 @@ namespace RVUpdateClient
 		delegate void WriteLineDelegate(string text);
 		delegate void ProgressBarDelegate(bool visible);
 		Model model;
-		private Thread thread;
 		public Form1()
 		{
 			InitializeComponent();
@@ -52,7 +51,7 @@ namespace RVUpdateClient
 			if (backgroundWorker1.IsBusy != true)
 			{
 				backgroundWorker1.RunWorkerAsync();
-				progressBar1.Visible = true;
+				ProgressToggle(true);
 			}
 		}
 
@@ -64,6 +63,11 @@ namespace RVUpdateClient
 		private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
 		{
 			model.UpdateMod();
+		}
+
+		private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+		{
+			ProgressToggle(false);
 		}
 	}
 }

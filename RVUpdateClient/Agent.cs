@@ -39,20 +39,8 @@ namespace RVUpdateClient
 
 		public static void RunTest()
 		{
-			WriteLine("RunTest has been Run");
-		}
-
-		public static string GetFirstPowerShell()
-		{
-			var assembly = Assembly.GetExecutingAssembly();
-			var resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith(".ps1"));
-			string result = "";
-			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-			using (StreamReader reader = new StreamReader(stream))
-			{
-				result = reader.ReadToEnd();
-			}
-			return result;
+			var output = RunString("Get-Date");
+			WriteLine(output);
 		}
 	}
 }

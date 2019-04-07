@@ -62,16 +62,14 @@ namespace RVUpdateClient
 		}
 
 		/// <summary>
-		///  This is needed to Delete Mod Directory. Directory.Delete will fail if there are any files marked as read only.
+		/// Directory.Delete will fail if there are any files marked as read only.
 		/// </summary>
 		void setAttributesNormal(DirectoryInfo dir)
 		{
 			foreach (var subDir in dir.GetDirectories())
 				setAttributesNormal(subDir);
 			foreach (var file in dir.GetFiles())
-			{
 				file.Attributes = FileAttributes.Normal;
-			}
 		}
 
 		public void DeleteModDirectory()
@@ -97,17 +95,8 @@ namespace RVUpdateClient
 
 		private void CloneRepo()
 		{
-			WriteLine("Calling New Thread for Clone");
+			WriteLine("Initializing Clone of Repository");
 			ProgressToggle(true);
-
-			// Not used at the moment
-			var options = new CloneOptions()
-			{
-				OnTransferProgress = _ => {
-					WriteLine("Transferring"); return true;
-				},
-				OnProgress = progress => { WriteLine("Progressing"); return true; }
-			};
 
 			Repository.Clone(Upstream, ModDirectory);
 			WriteLine("Clone Complete");
@@ -133,22 +122,11 @@ namespace RVUpdateClient
 
 		public void UpdateMod()
 		{
-			// Track the number of recursive calls and timeout. 
-			if (!RepoValid)
-			{
-				DeleteModDirectory();
-				CloneRepo();
-			}
-			else
-			{
-				//WriteLine("Mod Directory Valid. Checking for Updates");
-				/// I would like to be bandwidth sensitive here. IsPullNeeded should check to see if there is available data to pull.
-				/// Currently not working. 
-				/// What we do is Delete the repo directory, and start fresh each time. 
-				//IsPullNeeded();  
-				DeleteModDirectory();
-				CloneRepo();
-			}
+			/// Todo: Check if the repo is in valid state. Perform Git pull. 
+			//IsPullNeeded();  
+			DeleteModDirectory();
+			CloneRepo();
+			Agent.RunTest();
 		}
 
 		public bool SanityCheck()

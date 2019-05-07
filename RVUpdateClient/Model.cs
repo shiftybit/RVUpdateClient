@@ -49,10 +49,10 @@ namespace RVUpdateClient
 				"thememd.mix"
 			};
 
-			string documents = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			//string documents = @"F:\Documents\";
+			//string documents = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			string documents = @"D:\Documents\";
 			//string appData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			string appData = @"F:\AppData\";
+			string appData = @"D:\AppData\";
 			Upstream = @"https://github.com/mustaphatr/Romanovs-Vengeance";
 			ContentDirectory = Path.Combine(documents, @"OpenRA\Content\ra2");
 			ModDirectory = Path.Combine(appData, @"Romanovs-Vengeance");
@@ -88,7 +88,10 @@ namespace RVUpdateClient
 				if (File.Exists(fullPath))
 					WriteLine(fullPath + " Exists");
 				else
+				{
+					WriteLine("Error: " + fullPath + " Does Not Exist");
 					return false;
+				}
 			}
 			return true;
 		}
@@ -123,15 +126,15 @@ namespace RVUpdateClient
 		{
 			WriteLine("Initializing Build.");
 			Agent.RunTest();
-			Agent.RunString("pwd");
+			WriteLine("Current Directory: " + Agent.RunString("pwd"));
 		}
 		public void UpdateMod()
 		{
 			/// Todo: Check if the repo is in valid state. Perform Git pull. 
-			//IsPullNeeded();  
+			IsPullNeeded();  
 			//DeleteModDirectory();
 			//CloneRepo();
-			BuildMod();
+			//BuildMod();
 		}
 
 		public bool SanityCheck()

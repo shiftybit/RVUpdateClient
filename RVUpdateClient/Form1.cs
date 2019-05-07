@@ -46,7 +46,7 @@ namespace RVUpdateClient
 			progressBar1.Style = ProgressBarStyle.Marquee;
 		}
 
-		private void button2_Click(object sender, System.EventArgs e)
+		private void btnUpdateMod_Click(object sender, System.EventArgs e)
 		{
 			if (backgroundWorker1.IsBusy != true)
 			{
@@ -55,7 +55,7 @@ namespace RVUpdateClient
 			}
 		}
 
-		private void button1_Click(object sender, System.EventArgs e)
+		private void btnCheckUpdates_Click(object sender, System.EventArgs e)
 		{
 			model.SanityCheck();
 		}

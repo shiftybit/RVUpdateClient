@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.btnCheckUpdate = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -46,16 +46,16 @@
 			this.textBox1.Size = new System.Drawing.Size(623, 309);
 			this.textBox1.TabIndex = 0;
 			// 
-			// button1
+			// btnCheckUpdate
 			// 
-			this.button1.Enabled = false;
-			this.button1.Location = new System.Drawing.Point(360, 327);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(127, 24);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Check For Updates";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.btnCheckUpdate.Enabled = false;
+			this.btnCheckUpdate.Location = new System.Drawing.Point(360, 327);
+			this.btnCheckUpdate.Name = "btnCheckUpdate";
+			this.btnCheckUpdate.Size = new System.Drawing.Size(127, 24);
+			this.btnCheckUpdate.TabIndex = 1;
+			this.btnCheckUpdate.Text = "Check For Updates";
+			this.btnCheckUpdate.UseVisualStyleBackColor = true;
+			this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdates_Click);
 			// 
 			// button2
 			// 
@@ -65,7 +65,7 @@
 			this.button2.TabIndex = 2;
 			this.button2.Text = "Update";
 			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
+			this.button2.Click += new System.EventHandler(this.btnUpdateMod_Click);
 			// 
 			// progressBar1
 			// 
@@ -87,7 +87,7 @@
 			this.ClientSize = new System.Drawing.Size(657, 363);
 			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.button2);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.btnCheckUpdate);
 			this.Controls.Add(this.textBox1);
 			this.Name = "Form1";
 			this.Text = "RV Update Client";
@@ -100,7 +100,7 @@
 		#endregion
 
 		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnCheckUpdate;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.ComponentModel.BackgroundWorker backgroundWorker1;

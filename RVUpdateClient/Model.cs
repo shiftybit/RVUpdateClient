@@ -119,14 +119,19 @@ namespace RVUpdateClient
 			}
 			return false;
 		}
-
+		public void BuildMod()
+		{
+			WriteLine("Initializing Build.");
+			Agent.RunTest();
+			Agent.RunString("pwd");
+		}
 		public void UpdateMod()
 		{
 			/// Todo: Check if the repo is in valid state. Perform Git pull. 
 			//IsPullNeeded();  
-			DeleteModDirectory();
-			CloneRepo();
-			Agent.RunTest();
+			//DeleteModDirectory();
+			//CloneRepo();
+			BuildMod();
 		}
 
 		public bool SanityCheck()

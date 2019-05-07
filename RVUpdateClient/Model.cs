@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.IO;
 using LibGit2Sharp;
+using System.Diagnostics;
 
 namespace RVUpdateClient
 {
@@ -17,7 +15,6 @@ namespace RVUpdateClient
 		public string ContentDirectory { get; private set; }
 		public string Upstream { get; private set; }
 		public ArrayList MixFiles;
-		private Thread thread;
 
 		private bool ModDirectoryExists
 		{
@@ -49,10 +46,10 @@ namespace RVUpdateClient
 				"thememd.mix"
 			};
 
-			//string documents = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			string documents = @"D:\Documents\";
-			//string appData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			string appData = @"D:\AppData\";
+			string documents = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			//string documents = @"D:\Documents\";
+			string appData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			//string appData = @"D:\AppData\";
 			Upstream = @"https://github.com/mustaphatr/Romanovs-Vengeance";
 			ContentDirectory = Path.Combine(documents, @"OpenRA\Content\ra2");
 			ModDirectory = Path.Combine(appData, @"Romanovs-Vengeance");
@@ -75,9 +72,12 @@ namespace RVUpdateClient
 		public void DeleteModDirectory()
 		{
 			System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ModDirectory);
-			if (ModDirectoryExists)
-				setAttributesNormal(dir);
-				Directory.Delete(ModDirectory, true);
+            if (ModDirectoryExists)
+            {
+                setAttributesNormal(dir);
+                WriteLine("Deleting " + ModDirectory);
+                Directory.Delete(ModDirectory, true);
+            }
 		}
 
 		public bool CheckModContent()
@@ -113,7 +113,7 @@ namespace RVUpdateClient
             if (!RepoValid)
             {
                 WriteLine("Cannot Pull, Invalid Repo");
-                return false;
+                return true;
             }
             using (var repo = new Repository(ModDirectory))
 			{
@@ -131,16 +131,34 @@ namespace RVUpdateClient
 		{
 			WriteLine("Initializing Build.");
 			Agent.RunTest();
+            WriteLine("Mod Directory " + this.ModDirectory);
+            Agent.RunString("cd " + this.ModDirectory);
 			WriteLine("Current Directory: " + Agent.RunString("pwd"));
+            WriteLine("Building... This could be a while");
+            WriteLine(Agent.RunString(".\\make.cmd all"));
 		}
 		public void UpdateMod()
 		{
 			/// Todo: Check if the repo is in valid state. Perform Git pull. 
-			IsPullNeeded();  
-			//DeleteModDirectory();
-			//CloneRepo();
-			//BuildMod();
+			//IsPullNeeded();  
+			DeleteModDirectory();
+			CloneRepo();
+			BuildMod();
 		}
+
+        public void LaunchMod()
+        {
+            // works but need to close app after, and do this in background. 
+            var fullPath = Path.Combine(ModDirectory, "launch-game.cmd");
+            var proc1 = new ProcessStartInfo();
+            proc1.UseShellExecute = true;
+            proc1.WorkingDirectory = ModDirectory;
+            proc1.Verb = "runas";
+            proc1.FileName = fullPath;
+            proc1.WindowStyle = ProcessWindowStyle.Hidden;
+            Process.Start(proc1);
+            System.Windows.Forms.Application.Exit();
+        }
 
 		public bool SanityCheck()
 		{

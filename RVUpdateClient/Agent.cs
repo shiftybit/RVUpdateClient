@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using System.IO;
-using System.Reflection;
 
 namespace RVUpdateClient
 {
@@ -36,6 +31,13 @@ namespace RVUpdateClient
 			}
 			return returnString;
 		}
+
+        public static void RunStringAsync(string text)
+        {
+            // powershell.AddScript(text);
+            // Fill me out
+            return;
+        }
 
 		public static void RunTest()
 		{

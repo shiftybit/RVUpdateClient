@@ -52,7 +52,10 @@ namespace RVUpdateClient
 			{
 				backgroundWorker1.RunWorkerAsync();
 				ProgressToggle(true);
-			}
+			} else
+            {
+                WriteLine("Update Already In Progress");
+            }
 		}
 
 		private void btnCheckUpdates_Click(object sender, System.EventArgs e)
@@ -69,5 +72,10 @@ namespace RVUpdateClient
 		{
 			ProgressToggle(false);
 		}
-	}
+
+        private void LaunchButton_Click(object sender, System.EventArgs e)
+        {
+            model.LaunchMod();
+        }
+    }
 }

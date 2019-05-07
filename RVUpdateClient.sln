@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RVUpdateClient", "RVUpdateClient\RVUpdateClient.csproj", "{30DA549A-D9AA-4056-89DD-947A5453FD26}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibGit2Sharp", "libgit2sharp\LibGit2Sharp\LibGit2Sharp.csproj", "{C8D15528-4453-40C2-B97E-CAAD17731ACD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{30DA549A-D9AA-4056-89DD-947A5453FD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DA549A-D9AA-4056-89DD-947A5453FD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DA549A-D9AA-4056-89DD-947A5453FD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8D15528-4453-40C2-B97E-CAAD17731ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D15528-4453-40C2-B97E-CAAD17731ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D15528-4453-40C2-B97E-CAAD17731ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D15528-4453-40C2-B97E-CAAD17731ACD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

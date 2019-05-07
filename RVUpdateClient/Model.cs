@@ -108,9 +108,14 @@ namespace RVUpdateClient
 
 		public bool IsPullNeeded()
 		{
-			// Todo: this currently isn't working. behind never populates with data. 
-			// Skipping this so we can get the other parts working
-			using (var repo = new Repository(ModDirectory))
+            // Todo: this currently isn't working. behind never populates with data. 
+            // Skipping this so we can get the other parts working
+            if (!RepoValid)
+            {
+                WriteLine("Cannot Pull, Invalid Repo");
+                return false;
+            }
+            using (var repo = new Repository(ModDirectory))
 			{
 				string logMessage = "";
 				var remote = repo.Network.Remotes["origin"];

@@ -1,0 +1,18 @@
+; Check http://editorconfig.org/ for more informations
+; Top-most EditorConfig file
+root = true
+
+; 4-column space indentation
+[*]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+; Not change VS generated files
+[*.{sln,csproj}]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+[*.{props,targets,csproj}]
+indent_size = 2

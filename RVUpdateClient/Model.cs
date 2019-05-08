@@ -129,13 +129,16 @@ namespace RVUpdateClient
 		}
 		public void BuildMod()
 		{
-			WriteLine("Initializing Build.");
+            ProgressToggle(true);
+            WriteLine("Initializing Build.");
 			Agent.RunTest();
             WriteLine("Mod Directory " + this.ModDirectory);
             Agent.RunString("cd " + this.ModDirectory);
 			WriteLine("Current Directory: " + Agent.RunString("pwd"));
             WriteLine("Building... This could be a while");
-            WriteLine(Agent.RunString(".\\make.cmd all"));
+            Agent.RunString(".\\make.cmd all");
+            WriteLine("Build Complete");
+            ProgressToggle(false);
 		}
 		public void UpdateMod()
 		{
@@ -153,7 +156,6 @@ namespace RVUpdateClient
             var proc1 = new ProcessStartInfo();
             proc1.UseShellExecute = true;
             proc1.WorkingDirectory = ModDirectory;
-            proc1.Verb = "runas";
             proc1.FileName = fullPath;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
             Process.Start(proc1);

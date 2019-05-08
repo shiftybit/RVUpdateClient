@@ -72,6 +72,7 @@
             // 
             // LaunchButton
             // 
+            this.LaunchButton.Enabled = false;
             this.LaunchButton.Location = new System.Drawing.Point(502, 327);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(133, 23);

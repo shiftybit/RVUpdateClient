@@ -9,6 +9,8 @@ namespace RVUpdateClient
 		
 		delegate void WriteLineDelegate(string text);
 		delegate void ProgressBarDelegate(bool visible);
+        delegate void LaunchButtonDelegate(bool visible);
+
 		Model model;
 		public Form1()
 		{
@@ -25,6 +27,18 @@ namespace RVUpdateClient
 				this.Invoke(d, new object[] { visible });
 			}
 		}
+
+        public void LaunchButtonToggle(bool enabled)
+        {
+            if (!LaunchButton.InvokeRequired)
+                LaunchButton.Enabled = enabled;
+            else
+            {
+                LaunchButtonDelegate l = new LaunchButtonDelegate(LaunchButtonToggle);
+                this.Invoke(l, new object[] { enabled });
+            }
+        }
+
 		public void WriteLine(string text)
 		{
 			if (!textBox1.InvokeRequired)
@@ -39,7 +53,7 @@ namespace RVUpdateClient
 		private void Form1_Load(object sender, System.EventArgs e)
 		{
 			Agent.Initialize(WriteLine);
-			model = new Model(WriteLine,ProgressToggle);
+			model = new Model(WriteLine,ProgressToggle,LaunchButtonToggle);
 			model.SanityCheck();
 			textBox1.SelectionStart = 0;
 			textBox1.ReadOnly = true;
@@ -75,7 +89,10 @@ namespace RVUpdateClient
 
         private void LaunchButton_Click(object sender, System.EventArgs e)
         {
-            model.LaunchMod();
+            if (backgroundWorker1.IsBusy != true)
+                model.LaunchMod();
+            else
+                WriteLine("Can't launch while update is in progress");
         }
     }
 }

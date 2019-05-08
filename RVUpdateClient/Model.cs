@@ -11,6 +11,7 @@ namespace RVUpdateClient
 	{
 		static Action<string> WriteLine;
 		static Action<bool> ProgressToggle;
+        static Action<bool> LaunchButtonToggle;
 		public string ModDirectory { get; private set; }
 		public string ContentDirectory { get; private set; }
 		public string Upstream { get; private set; }
@@ -31,11 +32,11 @@ namespace RVUpdateClient
 			get { return CheckModContent(); }
 		}
 
-		public Model(Action<string> writeLine, Action<bool> progressToggle)
+		public Model(Action<string> writeLine, Action<bool> progressToggle, Action<bool> launchButtonToggle)
 		{
 			WriteLine = writeLine;
 			ProgressToggle = progressToggle;
-
+            LaunchButtonToggle = launchButtonToggle;
 			MixFiles = new ArrayList
 			{
 				"langmd.mix",
@@ -139,6 +140,7 @@ namespace RVUpdateClient
             Agent.RunString(".\\make.cmd all");
             WriteLine("Build Complete");
             ProgressToggle(false);
+            LaunchButtonToggle(true);
 		}
 		public void UpdateMod()
 		{

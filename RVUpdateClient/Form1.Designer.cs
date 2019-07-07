@@ -37,21 +37,27 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BackColor = System.Drawing.Color.Black;
             this.textBox1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.Chartreuse;
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Location = new System.Drawing.Point(16, 15);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(623, 309);
+            this.textBox1.Size = new System.Drawing.Size(829, 379);
             this.textBox1.TabIndex = 0;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(357, 327);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(476, 402);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 24);
+            this.button2.Size = new System.Drawing.Size(173, 30);
             this.button2.TabIndex = 2;
             this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
@@ -59,9 +65,11 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(13, 327);
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(17, 402);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(326, 23);
+            this.progressBar1.Size = new System.Drawing.Size(435, 28);
             this.progressBar1.TabIndex = 3;
             this.progressBar1.Visible = false;
             // 
@@ -72,10 +80,12 @@
             // 
             // LaunchButton
             // 
+            this.LaunchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LaunchButton.Enabled = false;
-            this.LaunchButton.Location = new System.Drawing.Point(502, 327);
+            this.LaunchButton.Location = new System.Drawing.Point(669, 402);
+            this.LaunchButton.Margin = new System.Windows.Forms.Padding(4);
             this.LaunchButton.Name = "LaunchButton";
-            this.LaunchButton.Size = new System.Drawing.Size(133, 23);
+            this.LaunchButton.Size = new System.Drawing.Size(177, 28);
             this.LaunchButton.TabIndex = 4;
             this.LaunchButton.Text = "Launch";
             this.LaunchButton.UseVisualStyleBackColor = true;
@@ -83,14 +93,14 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 353);
+            this.ClientSize = new System.Drawing.Size(856, 434);
             this.Controls.Add(this.LaunchButton);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "RV Update Client";
             this.Load += new System.EventHandler(this.Form1_Load);
